@@ -20,7 +20,6 @@ const App = () => {
       </Grid>
 
     </Grid>
-     Hello Gera
     </>
   );
 }

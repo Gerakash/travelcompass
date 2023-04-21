@@ -8,25 +8,26 @@ import { StyledPaper, MapContainer, MarkerContainer, Pointer } from './styles';
 
 
 
-const Map = ({setCoordinates, setBounds, coordinates}) => {
+const Map = ({setBounds, setCoordinates}) => {
 
 
-    const isMobile = useMediaQuery('(min-width: 600px)')
+    // const isMobile = useMediaQuery('(min-width: 600px)')
 
+    const coordinates = {lat: 0, lng: 0};
     return (
         <MapContainer>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
+                bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY}}
                 defaultCenter={coordinates}
                 center={coordinates}
                 defaultZoom={10}
                 margin={[50, 50, 50, 50]}
                 options={''}
                 onChange={(e) => {
+                    console.log("Event data:", e);
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });
-                    setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
-                  }}
-
+                    setBounds({ ne: e.bounds.ne, sw: e.bounds.sw });
+                }}
                 // onChildClick={''}
             >
             </GoogleMapReact>

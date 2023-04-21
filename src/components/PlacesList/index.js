@@ -3,15 +3,15 @@ import {CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, S
 import {StyledFormControl, SelectEmpty, Loading, Container, MarginBottom, List } from './styles'
 import PlaceDetails from '../PlaceDetails'
 
-const PlacesList = () => {
+const PlacesList = ({places}) => {
     const [type, setType] = useState('restaurants')
     const [rating, setRating] = useState('')
 
-    const places = [
-        {name: 'Cool Place'},
-        {name: 'coffee'},
-        {name: 'IceCream'}
-    ]
+    // const places = [
+    //     {name: 'Cool Place'},
+    //     {name: 'coffee'},
+    //     {name: 'IceCream'}
+    // ]
     return (
         <Container>
             <Typography variant='4'>Restaurants, Hotels & Attractions</Typography>

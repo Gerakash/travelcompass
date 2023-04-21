@@ -9,34 +9,36 @@ import PlacesList from "../PlacesList";
 const App = () => {
   const [places, setPlaces] = useState([])
   const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState(null)
+  const [bounds, setBounds] = useState({})
 
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
+    navigator.geolocation.getCurrentPosition(({coordinates: {latitude, longitude}}) => {
       setCoordinates({lat: latitude, lng: longitude});
     })
   }, [])
 
+  console.log(coordinates);
+
   useEffect(() => {
-    console.log(coordinates, bounds);
-
-    getPlacesData()
-    .then((data) => {
-      console.log(data);
-
-      setPlaces(data);
-    })
+    if (bounds && coordinates) {
+      getPlacesData(bounds.sw, bounds.ne)
+        .then((data) => {
+          console.log(data);
+          setPlaces(data);
+        });
+    }
   }, [coordinates, bounds]);
 
   console.log(places);
+
   return (
     <>
     <CssBaseline/>
     <Header/>
     <Grid container spacing={3} style={{width: "100%"}}>
       <Grid item xs={12} md={4}>
-        <PlacesList/>
+        <PlacesList places={places}/>
       </Grid>
       <Grid item xs={12} md={8}>
         <Map

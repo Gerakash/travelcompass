@@ -1,10 +1,66 @@
 import React from 'react';
+import { styled } from '@mui/system';
+import {Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip} from '@mui/material'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import PhoneIcon from '@mui/icons-material/Phone'
+import Rating from '@mui/material'
+
+
+
+const StyledChip = styled(Chip)({
+    margin: '5px 5px 5px 0',
+  });
+  
+  const Subtitle = styled('div')({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+  });
+  
+  const Spacing = styled('div')({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  });
+  
 
 const PlaceDetails = ({place}) => {
+    console.log(place);
     return (
-        <div>
-            <h2>{place.name}</h2>
-        </div>
+        <Card elevation={6}>
+            <CardMedia
+            style={{height: 350}}
+            image={ place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+            title={place.name}
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5">{place.name}</Typography>
+                <Box display="flex" justifyContent="space-between">
+                    <Typography variant="subtitle1">Price</Typography>
+                    <Typography gutterBottom variant="subtitle1">{place.price_level}</Typography>
+                </Box>
+                <Box display="flex" justifyContent="space-between">
+                    <Typography variant="subtitle1">Ranking</Typography>
+                    <Typography gutterBottom variant="subtitle1">{place.ranking}</Typography>
+                </Box>
+                {place?.awards?.map((award) => (
+                    <Box my={1} display="flex" justifyContent="space-between" alignItems="center">
+                        <img src={award.images.small} alt={award.display_name}/>
+                        <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
+                    </Box>
+                ))}
+                {place?.cuisine?.map(({name}) => (
+                    <StyledChip key="name" size="smal" label={name}></StyledChip>
+                ))}
+
+                {place.address && (
+                    <Subtitle gutterBottom variant="subtitle2" color="textSecondary">
+                        <LocationOnIcon/> {place.address}                    
+                    </Subtitle>
+                )}
+            </CardContent>
+        </Card>
     );
 };
 

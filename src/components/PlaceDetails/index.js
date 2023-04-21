@@ -54,11 +54,24 @@ const PlaceDetails = ({place}) => {
                     <StyledChip key="name" size="smal" label={name}></StyledChip>
                 ))}
 
-                {place.address && (
+                {place?.address && (
                     <Subtitle gutterBottom variant="subtitle2" color="textSecondary">
                         <LocationOnIcon/> {place.address}                    
                     </Subtitle>
                 )}
+                {place?.address && (
+                    <Spacing gutterBottom variant="subtitle2" color="textSecondary">
+                        <PhoneIcon/> {place.phone}                    
+                    </Spacing>
+                )}
+                <CardActions>
+                    <Button size='small' color='primary' onClick={() => window.open(place.web_url, '_blank')}>
+                        Trip Advisor
+                    </Button>
+                    <Button size='small' color='primary' onClick={() => window.open(place.website, '_blank')}>
+                        Website
+                    </Button>
+                </CardActions>
             </CardContent>
         </Card>
     );

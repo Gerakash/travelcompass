@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { styled } from '@mui/system';
 
 import GoogleMapReact from 'google-map-react';
@@ -33,12 +33,15 @@ const Pointer = styled('img')({
     cursor: 'pointer',
   });
 
-const Map = ({setBounds, setCoordinates, places}) => {
 
+
+
+const Map = ({setBounds, setCoordinates, places,  setChildClicked, coordinates}) => {
+    
 
     const isDesktop = useMediaQuery('(min-width: 600px)')
 
-    const coordinates = {lat: 0, lng: 0};
+    // const coordinates = {lat: 0, lng: 0};
     return (
         <MapContainer>
             <GoogleMapReact
@@ -53,7 +56,7 @@ const Map = ({setBounds, setCoordinates, places}) => {
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });
                     setBounds({ ne: e.bounds.ne, sw: e.bounds.sw });
                 }}
-                // onChildClick={''}
+                onChildClick={(child) => setChildClicked(child)}
             >
                 {places?.map((place, i) => (
                     <MarkerContainer

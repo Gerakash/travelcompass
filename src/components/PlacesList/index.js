@@ -1,20 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, createRef} from 'react';
 import {CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import {StyledFormControl, SelectEmpty, Loading, Container, MarginBottom, List } from './styles'
 import PlaceDetails from '../PlaceDetails'
 
-const PlacesList = ({places}) => {
-    const [type, setType] = useState('restaurants')
-    const [rating, setRating] = useState('')
+const PlacesList = ({places, childClicked, isLoading, type, setType, rating, setRating}) => {
+    // const [type, setType] = useState('restaurants')
+    // const [rating, setRating] = useState('')
+    const [elRefs, setElRefs] = useState([])
 
-    // const places = [
-    //     {name: 'Cool Place'},
-    //     {name: 'coffee'},
-    //     {name: 'IceCream'}
-    // ]
+    useEffect(() => {
+        const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef())
+        setElRefs(refs)
+    }, [places])
+
     return (
         <Container>
             <Typography variant='4'>Restaurants, Hotels & Attractions</Typography>
+            {isLoading ? (
+                <Loading>
+                    <CircularProgress size="5rem"/>
+                </Loading>
+            ) : (
+                <>
             <FormControl component={StyledFormControl}>
                 <InputLabel>Choose</InputLabel>
                 <Select value={type} onChange={(e) => setType(e.target.value)}>
@@ -35,10 +42,16 @@ const PlacesList = ({places}) => {
             <List container spacing={3} component={Grid}>
                 {places?.map((place, i) => (
                     <Grid item key={i} xs={12}>
-                        <PlaceDetails place={place}/>
+                        <PlaceDetails 
+                            place={place}
+                            selected={childClicked === i}
+                            refProp={elRefs[i]}
+                        />
                     </Grid>
                 ))}
             </List>
+            </>
+            )}
         </Container>
     );
 };

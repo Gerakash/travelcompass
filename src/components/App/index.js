@@ -14,6 +14,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [type, setType] = useState('restaurants')
   const [rating, setRating] = useState('')
+  const [filteredPlaces, setfilteredPlaces] = useState([])
 
 
   useEffect(() => {
@@ -22,35 +23,36 @@ const App = () => {
     })
   }, [])
 
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     setCoordinates({ lat: position.coords.latitude, lng: position.coords.longitude });
-  //   });
-  // }, []);
-
 
   useEffect(() => {
-    setIsLoading(true)
-    if (bounds && coordinates) {
+    const filteredPlaces = places.filter((place) => place.rating > rating) 
+    setfilteredPlaces(filteredPlaces)
+  }, [places, rating])
+
+  useEffect(() => {
+    if (bounds.sw && bounds.ne) {
+      setIsLoading(true)
+
       getPlacesData(type, bounds.sw, bounds.ne)
         .then((data) => {
-          console.log(data)
+          console.log(data.filter((place)=> place.name && place.num_reviews > 0))
           setPlaces(data)
+          setfilteredPlaces([])
           setIsLoading(false)
         });
     }
-  }, [coordinates, bounds, type]);
+  }, [ bounds, type]);
 
   console.log(places);
 
   return (
     <>
     <CssBaseline/>
-    <Header/>
+    <Header setCoordinates={setCoordinates}/>
     <Grid container spacing={3} style={{width: "100%"}}>
       <Grid item xs={12} md={4}>
         <PlacesList 
-          places={places}
+          places={filteredPlaces.length ? filteredPlaces : places}
           childClicked={childClicked}
           isLoading = {isLoading}
           type={type}

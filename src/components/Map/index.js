@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
 import { styled } from '@mui/system';
 
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@mui/material';
 import LocatiOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Rating } from '@mui/material';
+
+import mapStyles from './mapStyle.js'
 
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -41,7 +42,6 @@ const Map = ({setBounds, setCoordinates, places,  setChildClicked, coordinates})
 
     const isDesktop = useMediaQuery('(min-width: 600px)')
 
-    // const coordinates = {lat: 0, lng: 0};
     return (
         <MapContainer>
             <GoogleMapReact
@@ -50,7 +50,7 @@ const Map = ({setBounds, setCoordinates, places,  setChildClicked, coordinates})
                 center={coordinates}
                 defaultZoom={10}
                 margin={[50, 50, 50, 50]}
-                options={''}
+                options={{disableDefaultUI: true, zoomControl: true, styles: mapStyles }}
                 onChange={(e) => {
                     console.log("Event data:", e);
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });

@@ -4,8 +4,7 @@ import {StyledFormControl, SelectEmpty, Loading, Container, MarginBottom, List }
 import PlaceDetails from '../PlaceDetails'
 
 const PlacesList = ({places, childClicked, isLoading, type, setType, rating, setRating}) => {
-    // const [type, setType] = useState('restaurants')
-    // const [rating, setRating] = useState('')
+    
     const [elRefs, setElRefs] = useState([])
 
     useEffect(() => {

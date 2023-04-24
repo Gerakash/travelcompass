@@ -25,9 +25,7 @@ const StyledChip = styled(Chip)({
   });
   
 
-const PlaceDetails = ({place, refProp, selected}) => {
-
-    if(selected) refProp?.current?.scrollIntoView({behavior: "smooth", block: "start"})
+const PlaceDetails = ({place}) => {
     
     return (
         <Card elevation={6}>

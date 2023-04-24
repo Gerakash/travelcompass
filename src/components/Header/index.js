@@ -6,13 +6,12 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
-    // padding: theme.spacing(0, 16, 0, 1),
-    // width: '150px',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.black, 0.15),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.black, 0.45),
     },
+    marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -62,19 +61,16 @@ const Header = ({ setCoordinates }) => {
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: 'white' }}>
         <Toolbar>
             <Typography 
             variant="h5" 
             noWrap component="div" 
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontWeight: 'Bold',color: 'rgb(53, 54, 53)' }}
             >
-            Leisure Compass
+            LEISURE COMPASS
             </Typography>
             <Box display="flex">
-            <Typography variant="h6" >
-                Explore new places
-            </Typography>
             <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
                 <Search>
                     <SearchIconWrapper>

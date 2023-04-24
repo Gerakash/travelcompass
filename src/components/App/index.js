@@ -10,7 +10,7 @@ const App = () => {
   const [places, setPlaces] = useState([])
   const [coordinates, setCoordinates] = useState({lat: 0, lng: 0})
   const [bounds, setBounds] = useState({})
-  const [childClicked, setChildClicked] = useState(null)
+  // const [childClicked, setChildClicked] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [type, setType] = useState('restaurants')
   const [rating, setRating] = useState('')
@@ -53,7 +53,7 @@ const App = () => {
       <Grid item xs={12} md={4}>
         <PlacesList 
           places={filteredPlaces.length ? filteredPlaces : places}
-          childClicked={childClicked}
+          // childClicked={childClicked}
           isLoading = {isLoading}
           type={type}
           setType={setType}
@@ -69,7 +69,7 @@ const App = () => {
           setBounds={setBounds}
           coordinates={coordinates}
           places={places}
-          setChildClicked = {setChildClicked}
+          // setChildClicked = {setChildClicked}
         />
       </Grid>
 

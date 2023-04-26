@@ -32,7 +32,6 @@ const App = () => {
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       setIsLoading(true)
-
       getPlacesData(type, bounds.sw, bounds.ne)
         .then((data) => {
           console.log(data.filter((place)=> place.name && place.num_reviews > 0))
